@@ -1,57 +1,55 @@
-import os
+# This function adds two numbers
+def add(x, y):
+    return x + y
 
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+# This function subtracts two numbers
+def subtract(x, y):
+    return x - y
 
-def print_board(board):
-    for row in board:
-        print(" | ".join(row))
-        print("-" * 9)
+# This function multiplies two numbers
+def multiply(x, y):
+    return x * y
 
-def check_winner(board, player):
-    for row in board:
-        if all(cell == player for cell in row):
-            return True
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-    if all(board[i][i] == player for i in range(3)) or all(board[i][2-i] == player for i in range(3)):
-        return True
-    return False
+# This function divides two numbers
+def divide(x, y):
+    return x / y
 
-def is_board_full(board):
-    return all(all(cell != ' ' for cell in row) for row in board)
 
-def tick_tack_toe():
-    board = [[' ' for _ in range(3)] for _ in range(3)]
-    current_player = 'X'
-    print("Welcome to Tick-Tack-Toe!")
+print("Select operation.")
+print("1.Add")
+print("2.Subtract")
+print("3.Multiply")
+print("4.Divide")
 
-    while True:
-        clear()
-        print_board(board)
-        row = int(input(f"Player {current_player}, enter row (0, 1, 2): "))
-        col = int(input(f"Player {current_player}, enter column (0, 1, 2): "))
-        
-        if row < 0 or row > 2 or col < 0 or col > 2 or board[row][col] != ' ':
-            print("Invalid move. Try again.")
-            input("Press Enter to continue...")
+while True:
+    # take input from the user
+    choice = input("Enter choice(1/2/3/4): ")
+
+    # check if choice is one of the four options
+    if choice in ('1', '2', '3', '4'):
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
             continue
-        
-        board[row][col] = current_player
 
-        if check_winner(board, current_player):
-            clear()
-            print_board(board)
-            print(f"Player {current_player} wins!")
-            break
-        elif is_board_full(board):
-            clear()
-            print_board(board)
-            print("It's a tie!")
-            break
-        
-        current_player = 'X' if current_player == 'O' else 'O'
+        if choice == '1':
+            print(num1, "+", num2, "=", add(num1, num2))
 
-if __name__ == "__main__":
-    tick_tack_toe()
+        elif choice == '2':
+            print(num1, "-", num2, "=", subtract(num1, num2))
+
+        elif choice == '3':
+            print(num1, "*", num2, "=", multiply(num1, num2))
+
+        elif choice == '4':
+            print(num1, "/", num2, "=", divide(num1, num2))
+        
+        # check if user wants another calculation
+        # break the while loop if answer is no
+        next_calculation = input("Let's do next calculation? (yes/no): ")
+        if next_calculation == "no":
+          break
+    else:
+        print("Invalid Input")
